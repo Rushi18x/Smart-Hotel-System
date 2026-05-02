@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/data.js"></script>
+<script src="js/app.js"></script>
+
+</head>
+<body>
+  <h1>Your Cart</h1>
+  <div id="cart"></div>
+  <button onclick="placeOrder()">Place Order</button>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartDiv = document.getElementById("cart");
+
+    cart.forEach(item => {
+      cartDiv.innerHTML += `<p>${item.name} - ₹${item.price}</p>`;
+    });
+
+    function placeOrder() {
+      let orders = JSON.parse(localStorage.getItem("orders")) || [];
+      orders.push({ items: cart, status: "Pending" });
+      localStorage.setItem("orders", JSON.stringify(orders));
+      localStorage.removeItem("cart");
+      alert("Order Placed!");
+      window.location.reload();
+    }
+  </script>
+  <script src="js/data.js"></script>
+<script src="js/app.js"></script>
+
+
+</body>
+</html>
